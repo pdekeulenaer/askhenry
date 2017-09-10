@@ -1,0 +1,116 @@
+#grad {
+	background: #1b5699; /* Old browsers */
+	background: -moz-linear-gradient(-45deg, #1b5699 0%, #2989d8 64%, #2989d8 64%, #7db9e8 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(-45deg, #1b5699 0%,#2989d8 64%,#2989d8 64%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(135deg, #1b5699 0%,#2989d8 64%,#2989d8 64%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1b5699', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */	
+}
+
+.content-block {
+	color: #eeeeee;
+}
+
+.card {
+  color: #6d6d72;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #cccccc;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #cccccc;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #cccccc;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #cccccc;
+}
+
+.active-white {
+	color:#696969 !important;
+  background: #ffffff !important;
+}
+
+.size-20 {
+  font-size:20px !important
+}
+
+.size-22 {
+  font-size:22px !important
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+/**
+ *
+ * Customized slider
+ *
+ */
+/*
+.range-min,
+.range-max {
+  padding-top: 1px !important;
+}
+*/
+/*.range-bar.henry {
+  background-color: #6b6b6b;
+}
+
+.henry .range-quantity {
+  background-color: #e52027;
+}
+*/
+.henry .range-handle {
+  /*border-radius: 25px;*/
+  width: 18px;
+  height: 18px;
+  top: -7px;
+
+  background-color:#efefef;
+  -webkitbox-shadow: none;
+  box-shadow: none;
+}
+
+.henry .range-quantity {
+	background-color:#ececec;
+	height: 100%;
+}
+
+.henry .range-bar {
+	height: 4px;
+}
+
+/*.henry .range-min {
+  background: url('../images/heart_broken.png') 0 0 no-repeat;
+}
+
+.henry .range-max {
+  background: url('../images/heart.png') 0 0 no-repeat;
+}
+
+.range-bar {
+  background-color: #a9acb1;
+  border-radius: 15px;
+  display: block;
+  height: 4px;
+  position: relative;
+  width: 100%;
+}
+
+.range-quantity {
+  background-color: #017afd;
+  border-radius: 15px;
+  display: block;
+  height: 100%;
+  width: 0;
+}
+
+*/

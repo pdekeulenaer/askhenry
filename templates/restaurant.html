@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- Your app title -->
+    <title>My App</title>
+    <!-- Path to Framework7 iOS CSS theme styles-->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/framework7.ios.min.css') }}">
+    <!-- Path to Framework7 iOS related color styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/framework7.ios.colors.min.css') }}">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/my-app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/framework7-icons.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/powerange.css') }}"> -->
+  </head>
+  <body>
+    <!-- Views -->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class -->
+      <div class="view view-main">
+        <!-- Top Navbar-->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+            <div class="center sliding">Hungry? Ask Henry!</div>
+          </div>
+        </div>
+        <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through toolbar-through">
+          <!-- Page, "data-page" contains page name -->
+          <div data-page="index" class="page" id="grad">
+            <!-- Scrollable page content -->
+            <div class="page-content">
+              <div class="content-block">
+
+  <div class="swiper-container swiper-init" data-pagination=".swiper-pagination" data-speed="400" data-space-between="50">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+              <div class="card">
+                <div class="card-header"><strong>Den Box</strong></div>
+                <div class="card-content">
+                <img src="https://static1.squarespace.com/static/54327163e4b00eaf41d612fb/t/58076ffd5016e12d2c5c6111/1478714601212/BOX+burgers+eilandje+antwerpen?format=500w" width="100%" />
+                  <div class="list-block">
+                    <ul>
+                      <li class="item-content">
+                        <div class="item-inner" style="font-size:14px">
+                          Cuisine
+                          <div>Belgian, comfort food</div>
+                        </div>
+                      </li>
+                      <li class="item-content">
+                        <div class="item-inner" style="font-size:14px">
+                          Price
+                         <div>
+                            Mains: €15 - 20
+                          </div>
+                        </div>
+                      </li>
+                      <li class="item-content">
+                        <div class="item-inner" style="font-size:14px">
+                          Rating
+                          <div>
+                            <i class="icon f7-icons size-20">star_fill</i>
+                            <i class="icon f7-icons size-20">star_fill</i>
+                            <i class="icon f7-icons size-20">star_fill</i>
+                            <i class="icon f7-icons size-20">star_fill</i>
+                            <i class="icon f7-icons size-20">star</i>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="item-content">
+                        <div class="item-inner" style="font-size:14px">
+                          Comfort food in a vibrant location. Whether for a hearty dinner, a casual drink or a detox-brunch; this is the spot.
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="card-content-inner">
+                    <a class="button button-fill color-blue">
+                    <i class="f7-icons color-white float-left">check</i>Take me here (2 min walk)</a>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="link">Website</a>
+                  <a href="#" class="link">Show menu</a>
+                </div>
+              </div>        
+
+      </div>
+      <div class="swiper-slide">
+              <div class="card">
+                <div class="card-header"><strong>La Pipe d'Anvers</strong></div>
+                <div class="card-content">
+                <img src="{{ url_for('static', filename='img/restaurants/lapipe-1.png')}}" width="100%" />
+                  <div class="list-block">
+                    <ul>
+                      <li class="item-content">
+                        <div class="item-inner" style="font-size:14px">
+                          Cuisine
+                          <div>Belgian, brasserie</div>
+                        </div>
+                      </li>
+                      <li class="item-content">
+                        <div class="item-inner" style="font-size:14px">
+                          Price
+                         <div>
+                            Mains: €15 - 20
+                          </div>
+                        </div>
+                      </li>
+                      <li class="item-content">
+                        <div class="item-inner" style="font-size:14px">
+                          Rating
+                          <div>
+                            <i class="icon f7-icons size-20">star_fill</i>
+                            <i class="icon f7-icons size-20">star_fill</i>
+                            <i class="icon f7-icons size-20">star_fill</i>
+                            <i class="icon f7-icons size-20">star_fill</i>
+                            <i class="icon f7-icons size-20">star_half</i>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="item-content">
+                        <div class="item-inner" style="font-size:14px">
+                          Small bar straight from Allo Allo. Grab a table on the brand new Cadix Square and enjoy the best of Antwerp's Eilandje.
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="card-content-inner">
+                    <a class="button button-fill color-blue">
+                    <i class="f7-icons color-white float-left">check</i>Take me here (6 min walk)</a>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="link">Website</a>
+                  <a href="#" class="link">Show menu</a>
+                </div>
+              </div>        
+
+      </div>
+      <div class="swiper-slide">
+              <div class="card">
+                <div class="card-header"><strong>L'officina</strong></div>
+                <div class="card-content">
+                <img src="{{ url_for('static', filename='img/restaurants/officina-1.jpg')}}" width="100%" />
+                  <div class="list-block">
+                    <ul>
+                      <li class="item-content">
+                        <div class="item-inner" style="font-size:14px">
+                          Cuisine
+                          <div>Italian, pasta</div>
+                        </div>
+                      </li>
+                      <li class="item-content">
+                        <div class="item-inner" style="font-size:14px">
+                          Price
+                         <div>
+                            Mains: €12 - 20
+                          </div>
+                        </div>
+                      </li>
+                      <li class="item-content">
+                        <div class="item-inner" style="font-size:14px">
+                          Rating
+                          <div>
+                            <i class="icon f7-icons size-20">star_fill</i>
+                            <i class="icon f7-icons size-20">star_fill</i>
+                            <i class="icon f7-icons size-20">star_fill</i>
+                            <i class="icon f7-icons size-20">star_fill</i>
+                            <i class="icon f7-icons size-20">star_half</i>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="item-content">
+                        <div class="item-inner" style="font-size:14px">
+                          Cosy and charming Italian with great pastas and a lovely dessert trolley.
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="card-content-inner">
+                    <a class="button button-fill color-blue">
+                    <i class="f7-icons color-white float-left">check</i>Take me here (1 min walk)</a>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="link">Website</a>
+                  <a href="#" class="link">Show menu</a>
+                </div>
+              </div>            
+
+
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Bottom Toolbar-->
+        <div class="toolbar">
+          <div class="toolbar-inner">
+              <a href="#" class="link">About</a>
+              <a href="#" class="link">Home</a>
+              <a href="#" class="link">Subscribe</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/framework7.min.js') }}"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/my-app.js') }}"></script>
+    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/powerange.js')}}"></script> -->
+<!--     <script type="text/javascript">
+      var elem = document.querySelector('.slider-range');
+      var init = new Powerange(elem, {hideRange: true, min:5, max:30, start:10, klass: 'henry'});
+
+
+      var changeInput = document.querySelector('.slider-range');
+      changeInput.onchange = function() {
+        document.getElementById('distance-value').innerHTML = changeInput.value;
+      };
+    </script> -->
+  </body>
+</html>    

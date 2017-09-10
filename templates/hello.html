@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- Your app title -->
+    <title>My App</title>
+    <!-- Path to Framework7 iOS CSS theme styles-->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/framework7.ios.min.css') }}">
+    <!-- Path to Framework7 iOS related color styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/framework7.ios.colors.min.css') }}">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/my-app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/framework7-icons.css') }}">
+  </head>
+  <body>
+    <!-- Views -->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class -->
+      <div class="view view-main">
+        <!-- Top Navbar-->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+            <div class="center sliding">Hungry? Ask Henry!</div>
+          </div>
+        </div>
+        <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through toolbar-through">
+          <!-- Page, "data-page" contains page name -->
+          <div data-page="index" class="page">
+            <!-- Scrollable page content -->
+              <p align="center">
+                <img data-src="https://dcf54aygx3v5e.cloudfront.net/fac7232f-1b5f-434c-ba49-99be850a5a91/9753e6dd-2f6d-4d8d-9cd9-e632057f2a4e.jpg" class="lazy" width="100%">
+              </p>
+            <div class="page-content" style="padding-top:0px">
+            <div class="content-block">
+            <p><h2 align="center">Where do you want to eat?</h2></p>
+              <form id="my-form" class="list-block">
+                    <div class="item-content">
+                      <div class="item-inner">
+                          <!-- Each "cell" has col-[widht in percents] class -->
+                        <div class="item-input">
+                        <input type="text" name="name" placeholder="Your location">
+                        </div>
+                        <div class="item-media"><i class="icon f7-icons">navigation_fill</i></div>
+                      </div>
+                    </div>
+              </form>
+            </div>
+            </div>
+          </div>
+        </div>
+        <!-- Bottom Toolbar-->
+        <div class="toolbar">
+          <div class="toolbar-inner">
+              <a href="#" class="link">About</a>
+              <a href="#" class="link">Subscribe</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/framework7.min.js') }}"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/my-app.js') }}"></script>
+  </body>
+</html>    

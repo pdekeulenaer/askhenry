@@ -1,0 +1,40 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+    <style>
+       #map {
+        height: 600px;
+        width: 100%;
+       }
+    </style>
+{{ super() }}
+<div class="row">
+    <div class="span10 offset1">
+      <div id="map"></div>
+    </div>
+</div>
+    <script>
+      function initMap() {
+        var locs = {{ restos|tojson }};
+
+        console.log(locs)
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: {'lat': 51.2194, 'lng': 4.4025}
+        });
+
+
+        var markers = locs.map(function(location, i) {
+          return new google.maps.Marker({
+            position: {'lat':locs[i].lat, 'lng': locs[i].lng},
+            map: map,
+          });
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6oP_APLiGOxYuTGFNEZk6q8Xvd_DOdWs&callback=initMap">
+    </script>
+
+{% endblock body %}
+</html>
