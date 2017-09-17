@@ -56,10 +56,8 @@ def logout():
 # 		get_url=url_for
 # 		)
 
-def get_app():
-	app.configurate_app()
-	return app
+
+app.configurate_app()
 
 if __name__ == '__main__':
-	app = get_app()
 	app.run(debug=True)
