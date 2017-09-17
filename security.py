@@ -44,9 +44,9 @@ def initialize(app):
 	app.config['SECURITY_PASSWORD_SALT'] = '$817djwmfld0k*!MJAmdlswwqzpzdneia'
 	
 	user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-	security = Security(app, user_datastore)
+	security_ctx = Security(app, user_datastore)
 
-	return (security, user_datastore)
+	return (security_ctx, user_datastore)
 
 def _preload():
 	db.create_all()
@@ -68,3 +68,4 @@ def _user_preload(roles):
 	pdk.password = encrypt_password('playstation22')
 	db.session.add(pdk)
 	db.session.commit()
+
