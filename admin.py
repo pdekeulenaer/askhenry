@@ -12,7 +12,7 @@ def initialize(app):
 	# admin.add_view(ManagementView(name="Antwerp", endpoint='restos/antwerp', category='Restaurants'))
 	# admin.add_view(ManagementView(name="Brussels", endpoint='restos/brussels', category='Restaurants'))
 	admin.add_view(RestoAdminView(models.Restaurant, db.session))
-	admin.add_view(ModelView(models.City, db.session))
+	admin.add_view(AdminModelView(models.City, db.session))
 	admin.add_view(MapView(name='Map', endpoint='map'))
 	admin.init_app(app)
 	return admin
@@ -30,7 +30,6 @@ class AdminModelView(ModelView):
 	def _handle_view(self, name, **kwargs):
 		if not self.is_accessible():
 			if current_user.is_authenticated:
-
 				abort(403)
 			else:
 				return redirect(url_for('security.login', next=request.url))
@@ -39,9 +38,15 @@ class AdminModelView(ModelView):
 class MyAdminView(BaseView):
 	@expose('/')	
 	def index(self):
-	    if not current_user.is_authenticated:
-	        return redirect(url_for('security.login', next=request.url))
-	    return self.render('admin/index.html')
+		if not current_user.is_authenticated:
+			return redirect(url_for('security.login', next=request.url))
+
+		nrestos = models.Restaurant.query.count()
+		last_updated = models.Restaurant.query.order_by(models.Restaurant.last_updated.desc()).limit(5).all()
+
+		return self.render('admin/index.html', nrestos=nrestos, newest=last_updated)
+
+
 
 class RestoAdminView(AdminModelView):
 	form_excluded_columns = ('longitude', 'latitude',)
@@ -92,4 +97,4 @@ class MapView(BaseView):
 			else:
 				return redirect(url_for('security.login', next=request.url))
 
-admin = Admin(name="Master Henry", index_view=MyAdminView(url='/admin', static_folder='../static', endpoint='admin'))
+admin = Admin(name="Master Henry", index_view=MyAdminView(url='/admin', name='Home', static_folder='static', endpoint='admin'))

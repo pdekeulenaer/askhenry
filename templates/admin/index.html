@@ -3,18 +3,21 @@
 {{ super() }}
 <div class="row">
   <div class="span10 offset1">
-    <h1>Flask-Admin example</h1>
+    <h1>Ask Henry administrator page</h1>
     <p class="lead">
-      Simple admin views, not related to models.
+      Welcome, {{current_user.first_name}} {{ current_user.last_name }}
     </p>
     <p>
-      This example shows how to add your own views to the admin interface. The views do not have to be associated
-      to any of your models, and you can fill them with whatever content you want.
+      There are currently {{ nrestos }} restaurants in the database.
     </p>
     <p>
-      By adding custom views to the admin interface, they become accessible through the <em>navbar</em> at the top.
+      Most recent additions in the database
+    <ul>
+      {% for resto in newest %}
+      <li>{{ resto.name }} [<a href='restaurant/edit/?id={{resto.id}}'>Edit</a>]</li>
+      {% endfor %}
+    </ul> 
     </p>
-    <a class="btn btn-primary" href="/"><i class="icon-arrow-left icon-white"></i> Back</a>
   </div>
 </div>
 {% endblock body %}

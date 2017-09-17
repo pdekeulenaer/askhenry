@@ -12,20 +12,31 @@ def configurate_app():
 	app.config['SESSION_TYPE'] = 'filesystem'
 	app.config['SQLALCHEMY_DATABASE_URI'] = sqlite_str()
 	app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+	app.config['SECURITY_REGISTERABLE'] = True
 	
-	security.initialize(app)
-	admin.initialize(app)
+	(security_ctx, user_datastore) = security.initialize(app)
+	admin_ctx = admin.initialize(app)
+
+
+	@security_ctx.context_processor
+	def security_context_processor():
+	    return dict(
+	        admin_base_template=admin_ctx.base_template,
+	        admin_view=admin_ctx.index_view,
+	        h=admin_helpers,
+	        get_url=url_for
+	    )
 
 	db.init_app(app)
 	app.app_context().push()
 
+@app.route('/app/')
+def main_app():
+	return render_template('hello_gradient.html')
+
 @app.route('/')
 def index():
-	return 'Hello'
-
-@app.route('/app/')
-def main():
-	return render_template('hello_gradient.html')
+	return redirect(url_for('main_app'))
 
 @app.route('/app/resto/')
 def resto():
@@ -45,6 +56,10 @@ def logout():
 # 		get_url=url_for
 # 		)
 
+def get_app():
+	app.configurate_app()
+	return app
+
 if __name__ == '__main__':
-	configurate_app()
+	app = get_app()
 	app.run(debug=True)
