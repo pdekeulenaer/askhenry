@@ -13,8 +13,10 @@ def configurate_app():
 	app.config['SQLALCHEMY_DATABASE_URI'] = sqlite_str()
 	app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 	app.config['SECURITY_REGISTERABLE'] = True
-	
-	(security_ctx, user_datastore) = security.initialize(app)
+	app.config['SECRET_KEY'] = 'youcanaskhenryanythinganytime'
+        app.config['SESSION_COOKIE_SECURE'] = False
+        app.config['WTF_CSRF_ENABLED'] = False
+        (security_ctx, user_datastore) = security.initialize(app)
 	admin_ctx = admin.initialize(app)
 
 
@@ -24,11 +26,12 @@ def configurate_app():
 	        admin_base_template=admin_ctx.base_template,
 	        admin_view=admin_ctx.index_view,
 	        h=admin_helpers,
-	        get_url=url_for
+                get_url=url_for
 	    )
 
 	db.init_app(app)
 	app.app_context().push()
+
 
 @app.route('/app/')
 def main_app():
@@ -57,7 +60,7 @@ def logout():
 # 		)
 
 
-app.configurate_app()
+configurate_app()
 
 if __name__ == '__main__':
 	app.run(debug=True)
