@@ -2,6 +2,8 @@ from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Boo
 from sqlalchemy.orm import relationship
 import datetime
 from database import db
+import lib	
+import random
 
 class City(db.Model):
 	__tablename__ = 'cities'
@@ -25,11 +27,23 @@ class Restaurant(db.Model):
 	website = Column(String(255))
 	has_reservation = Column(Boolean)
 	master_rating = Column(Float, default=3.0)
+	cuisine = Column(String(255))
 	blurb = Column(Text)
 	price = Column(String(10), default="20-30")
 	last_updated = Column(DateTime, default=datetime.datetime.utcnow)
-
 	city = relationship('City')
+
+	def foldername(self):
+		return lib.util.cleanstr(str(self.id) + ' ' + self.name)
+
+	def imglist(self):
+		path = '\\static\\img\\restaurants\\'+self.foldername()
+		imgs = lib.util.listfiles(path)
+		return imgs
+
+	def img(self):
+		imgs = self.imglist()
+		return random.choice(imgs)
 
 	def __repr__(self):
 		return self.name

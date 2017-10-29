@@ -1,34 +1,25 @@
-import math
+import main
+import lib
+import models
 
-def calc_pq(a,b):
-	pq = math.sqrt((b-a)**2 + ((b*b)-(a*a))**2)
-	return pq
+import os
 
-def calc_rs(a,b):
-	rs = math.sqrt( (b-a)**2 + ( (b*b)/4 - (a*a)/4 )**2)
-	return rs
+restos = models.Restaurant.query.all()
+# base = os.getcwd() + "\\static\\img\\restaurants\\"
 
-r = range(0,10000)
-r = map (float, r)
-r = map(lambda l: l/10.0, r)
+# for r in restos:
+# 	path = r.foldername()
+# 	pn = base + path + '\\'
 
-# for i in r:
-# 	print "I is: " + str(i)
-# 	for j in r:
-# 		rs = calc_rs(i,j)
-# 		pq = calc_pq(i,j)
-
-# 		if pq > 0:
-# 			delta = pq / rs
-# 			print delta
-# 			if delta > 3.5 and delta < 4.5:
-# 				print ("%d, %d, %d" % (rs, pq, delta))
+# 	if not os.path.exists(pn):
+# 		print "creating"
+# 		os.makedirs(pn)
+# 	else:
+# 		print "exists"
 
 
-a = 1
-b = 100000000000000
+# lib.util.listfiles(os.getcwd() + '\\static\\img\\restaurants\\1-billies-bier-kafetaria')
 
-pq = calc_pq(a,b)
-rs = calc_rs(a,b)
-
-print ("%d, %d, %d" % (rs, pq, float(pq/rs)))
+for r in restos:
+	print r.img()
+	print type(r.img())

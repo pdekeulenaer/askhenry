@@ -1,0 +1,58 @@
+{% set r = resto[1] %}
+{% set d = resto[0] %}
+
+<div class="swiper-slide">
+  <div class="card">
+    <div class="card-header"><strong>{{r.name}}</strong></div>
+    <div class="card-content">
+    <img src="{{ url_for('static', filename = 'img/restaurants/{0}/{1}'.format(r.foldername(), r.img()) ) }}" width="100%" style="max-height: 250px" />
+      <div class="list-block">
+        <ul>
+          <li class="item-content">
+            <div class="item-inner" style="font-size:14px">
+              Cuisine
+              <div>{{r.cuisine}}</div>
+            </div>
+          </li>
+          <li class="item-content">
+            <div class="item-inner" style="font-size:14px">
+              Price
+             <div>  
+                Mains: € {{r.price}}
+              </div>
+            </div>
+          </li>
+          <li class="item-content">
+            <div class="item-inner" style="font-size:14px">
+              Rating
+              <div>
+                <i class="icon f7-icons size-20">star_fill</i>
+                <i class="icon f7-icons size-20">star_fill</i>
+                <i class="icon f7-icons size-20">star_fill</i>
+                <i class="icon f7-icons size-20">star_fill</i>
+                <i class="icon f7-icons size-20">star</i>
+              </div>
+            </div>
+          </li>
+          <li class="item-content">
+            <div class="item-inner" style="font-size:14px">
+              {{r.blurb}}
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="card-content-inner">
+        <a class="button button-fill color-blue link external" href="https://www.google.com/maps/dir/?api=1&destination={{r.latitude}},{{r.longitude}}&action=navigate">
+        <i class="f7-icons color-white float-left">check</i>Take me here ({{d|round(1)}} km)</a>
+      </div>
+    </div>
+    <div class="card-footer">
+      {% if r.website %}
+      <a href="{{''.join([r.website])}}" target="_blank" class="link external">Website</a>
+      {% else %}
+      <a href="#" target="_blank" class="link external disabled">Website</a>
+      {% endif %}
+      <a href="#" class="link disabled">Show menu</a>
+    </div>
+  </div>
+</div>

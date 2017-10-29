@@ -1,0 +1,94 @@
+
+
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyBUPyNKvbK6RwVSf0jNqsUkHrjBmW_TM4M"></script>
+    <script type="text/javascript">
+      function toggle(id){
+        var el = $('#'+id)
+        if (el.hasClass("active-white")){
+          el.removeClass("active-white");
+          $('#'+'input_'+id).val(0);
+          console.log('removing value from input_' + id)
+        } else {
+          el.addClass("active-white");
+          $('#'+'input_'+id).val(1) ;
+          console.log('adding value to input_' + id)
+        }
+      };
+
+      function locate(){
+        geoLocateAPI()
+        // if (navigator.geolocation){
+        //   // navigator.geolocation.getCurrentPosition(geoCode, geoLocateAPI, {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
+          
+        // } else {
+        //   console.log('Geolocation not supported')
+        // }
+      };
+
+
+      var api_key = 'AIzaSyDkC04TyWleKErJeTq--Jhrp4DRYy7V0vI'
+      var geolocate_api = "https://www.googleapis.com/geolocation/v1/geolocate?key="
+      
+      // function geoLocateAPI(){
+      //   console.log(JSON.stringify({'test':'ip'}))
+      //   $.ajax({
+      //       'url': geolocate_api + api_key,
+      //       'type': 'POST',
+      //       'dataType' : 'json',
+      //       'Content-Type': 'application/json', 
+      //       'data': JSON.stringify({'considerIp':'false'}),
+      //       'success': function(success) {
+      //         console.log(success);
+      //         geoCode(success.location.lat, success.location.lng);
+      //   }}).fail(function(err) {
+      //     console.log("An issue occurred: " + err)
+      //     console.log(err)
+      //   });
+      // }
+
+      function geoLocateAPI(){
+        xhr = new XMLHttpRequest();
+        var url = geolocate_api + api_key
+
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function () { 
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var json = JSON.parse(xhr.responseText);
+                console.log(json.location.lat+","+json.location.lng+","+json.accuracy);
+                console.log(json);
+            }
+        };
+        
+        var data = JSON.stringify({"considerIp": "false"});
+        xhr.send(data);
+      };
+
+
+
+      function geoCode(lat, long){
+        var geocoder = new google.maps.Geocoder()
+        var latlong = {lat: lat, lng: long};
+
+        console.log('latlong: '+latlong)
+        geocoder.geocode({'location':latlong}, function(res, status) {
+            if (status == 'OK'){
+              fivers = res.filter(function(e){
+                return (e.address_components.length == 5);
+              });
+              if (fivers.length > 0) {
+                address = fivers[0];
+              } else {
+                address = res[0];
+              };
+              // address defined now
+              $('#location-input').val(address.formatted_address);
+              console.log(address);
+            } else {
+              console.log(status);
+            }
+            console.log(res);
+        });
+      }
+    </script>

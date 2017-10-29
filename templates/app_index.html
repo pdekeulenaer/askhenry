@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+        <div class="pages navbar-through toolbar-through">
+          <!-- Page, "data-page" contains page name -->
+          <div data-page="index" class="page" id="grad">
+            <!-- Scrollable page content -->
+            <div class="page-content">
+            <div class="content-block">
+            <p style="padding-top:30px"><h2 align="center">Where are you looking for a restaurant?</h2></p>
+              <form id="search-form" class="list-block" action="show-restos/" method="post">
+                    <div class="item-content">
+                      <div class="item-inner">
+                          <!-- Each "cell" has col-[widht in percents] class -->
+                        <div class="item-input">
+                        <input type="text" name="location" placeholder="Your location" style="color:#ffffff" id="location-input">
+                        </div>
+                        <div class="item-media"><i class="icon f7-icons" onclick="locate()">navigation_fill</i></div>
+                      </div>
+                    </div>
+              <p style="padding-top:1px;padding-left:15px">
+                <p align="center">How do you want to move around?</p>
+              </p>
+
+              <p class="buttons-row theme-white" style="padding-left:15px">
+                <a href="#" class="button active-white" onclick="toggle('foot')" id="foot">On foot</a>
+                <a href="#" class="button" onclick="toggle('bike')" id="bike">By bike</a>
+                <a href="#" class="button" onclick="toggle('car')" id="car">By car</a>
+                <input type="hidden" id="input_foot" name="foot" value="1">
+                <input type="hidden" id="input_bike" name="bike" value="0">
+                <input type="hidden" id="input_car" name="car" value="0">
+              </p>
+
+              <div style="height:50px"></div>
+              <p style="padding-left:15px;padding-top:35px">
+                <a href="#" class="button button-big button-fill color-white" onclick="$('#search-form').submit()" style="color:#696969">Find a nice dinner</a>
+              </p>
+              </form>
+            </div>
+            </div>
+          </div>
+        </div>
+
+{% endblock %}
+
+{% block scripts %}
+  {% include "app_index_geocode_scripts.html" %}
+{% endblock %}

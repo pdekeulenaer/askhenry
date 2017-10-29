@@ -1,10 +1,12 @@
 import requests, pprint
+import geopy.geocoders, geopy.distance
 
 api_url = 'https://maps.googleapis.com/maps/api/geocode/json'
 api_key = 'AIzaSyAeqNIPSlEAVVBSPi75QWh6vWgNnBi9O00'
+
 params = {'key':api_key}
 
-def latlng(addr, api='Google'):
+def _latlng_google_manual(addr, api='Google'):
 	params['address'] = addr
 	r = requests.get(api_url, params)
 	results = r.json()['results']
@@ -14,6 +16,15 @@ def latlng(addr, api='Google'):
 	lng = loc['lng']
 
 	return (lat, lng)
+
+
+def _latlng_geopy_nominatim(addr, api='Nomatim'):
+	locator = geopy.geocoders.Nominatim()
+	loc = locator.geocode(addr)
+	return (loc.latitude, loc.longitude)
+
+def latlng(addr, api='Google'):
+	return _latlng_google_manual(addr)
 
 
 if __name__ == '__main__':

@@ -3,7 +3,9 @@ from database import db
 import models, csv
 import lib.geocode
 
-main.load()
+import sys
+reload(sys)  # Reload does the trick!
+sys.setdefaultencoding('UTF8')
 
 file = 'build/restaurants.csv'
 
@@ -11,7 +13,6 @@ def parse_header(header):
 	l = map(lambda l: l.lower(), header)
 	l = map(lambda l: l.replace(" ", "_"), l)
 	return l
-
 
 
 class Data(object):
@@ -72,11 +73,10 @@ for rest in data:
 	r.has_reservation = (rest.reservation_online_tool == 'Y')
 	(r.latitude, r.longitude) = lib.geocode.latlng(rest.location)
 
-
+	print r.name
 
 	db.session.add(r)
 	db.session.commit()
-	print r.name
 
 print "IN DATABASE ---------------------------"
 

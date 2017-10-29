@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- Your app title -->
+    <title>Ask Henry!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/framework7.ios.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/framework7.ios.colors.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/my-app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/framework7-icons.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/powerange.css') }}"> -->
+  </head>
+  <body>
+    <!-- Views -->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class -->
+      <div class="view view-main">
+        <!-- Top Navbar-->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+            <div class="center sliding">Hungry? Ask Henry!</div>
+          </div>
+        </div>
+        <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+        {% block content %}{% endblock %}
+        <!-- Bottom Toolbar-->
+        <div class="toolbar">
+          <div class="toolbar-inner">
+              <a href="#" class="link">About</a>
+              <a href="#" class="link">Subscribe</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/framework7.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/my-app.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>    

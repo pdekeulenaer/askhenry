@@ -1,0 +1,2 @@
+ID,Restaurant,Cuisine,Price,Location,Reservation Online Tool,Phone,Website,Blurb,Tripadvisor ID,Tripadvisor Rating,Yelp ID,Yelp Ration,Mo,Tu,We,Th,Fr,Sa,Su
+25,Dock's Café,Belgian,€€ - €€€,"Jordaenskaai 7, 2000 Antwerpen",Y,,,,,,,,,,,,,,

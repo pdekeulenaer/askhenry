@@ -1,8 +1,16 @@
-from flask import Flask, render_template, redirect, url_for
-import admin, security, models
+from flask import Flask, render_template, redirect, url_for, request
+import admin, security, models, search
 from database import db, sqlite_str
 from flask_admin import helpers as admin_helpers
 from flask_security import logout_user
+
+import lib
+
+# fixing encoding temporarily
+import sys
+reload(sys)  # Reload does the trick!
+sys.setdefaultencoding('UTF8')
+
 
 app = Flask(__name__)
 
@@ -14,9 +22,9 @@ def configurate_app():
 	app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 	app.config['SECURITY_REGISTERABLE'] = True
 	app.config['SECRET_KEY'] = 'youcanaskhenryanythinganytime'
-        app.config['SESSION_COOKIE_SECURE'] = False
-        app.config['WTF_CSRF_ENABLED'] = False
-        (security_ctx, user_datastore) = security.initialize(app)
+	app.config['SESSION_COOKIE_SECURE'] = False
+	app.config['WTF_CSRF_ENABLED'] = False
+	(security_ctx, user_datastore) = security.initialize(app)
 	admin_ctx = admin.initialize(app)
 
 
@@ -35,15 +43,21 @@ def configurate_app():
 
 @app.route('/app/')
 def main_app():
-	return render_template('hello_gradient.html')
+	return render_template('app_index.html')
 
 @app.route('/')
 def index():
 	return redirect(url_for('main_app'))
 
-@app.route('/app/resto/')
+@app.route('/app/show-restos/', methods=['POST'])
 def resto():
-	return render_template('restaurant.html')
+	# find 3 restaurants
+	loc = request.form['location']
+	dist = search.radius(int(request.form['foot']), int(request.form['bike']), int(request.form['car']))
+	restos = search.search(loc, dist)
+	
+	return render_template('app_restos.html', restaurants=restos)
+
 
 @app.route('/user/logout')
 def logout():
