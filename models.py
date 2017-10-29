@@ -37,7 +37,7 @@ class Restaurant(db.Model):
 		return lib.util.cleanstr(str(self.id) + ' ' + self.name)
 
 	def imglist(self):
-		path = '\\static\\img\\restaurants\\'+self.foldername()
+		path = '/static/img/restaurants/'+self.foldername()
 		imgs = lib.util.listfiles(path)
 		return imgs
 
