@@ -66,6 +66,12 @@ def _user_preload(roles):
 	pdk = User(email='philip.dekeulenaer@gmail.com', first_name='Philip', last_name='De Keulenaer')
 	pdk.roles = roles.values()
 	pdk.password = encrypt_password('playstation22')
+
+	tb = User(email='thomas@berger.be', first_name="Thomas", last_name="Philip")
+	tb.roles = roles.values()
+	tb.password = encrypt_password('minifie')
+
 	db.session.add(pdk)
+	db.session.add(tb)
 	db.session.commit()
 

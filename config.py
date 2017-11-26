@@ -19,3 +19,4 @@ def create_default():
 
 _config = load()
 DB_TYPE = _config.get('DATABASE', 'DB_TYPE')
+DB_NAME = _config.get('DATABASE', 'DB_NAME')

@@ -31,19 +31,25 @@ class Restaurant(db.Model):
 	blurb = Column(Text)
 	price = Column(String(10), default="20-30")
 	last_updated = Column(DateTime, default=datetime.datetime.utcnow)
+	genre = Column(String(255))
+	recom_bf = Column(Boolean, default=False)
+	recom_lunch = Column(Boolean, default=False)
+
 	city = relationship('City')
+	hours = relationship('OpeningHours', backref='restaurant', lazy='dynamic')
 
 	def foldername(self):
 		return lib.util.cleanstr(str(self.id) + ' ' + self.name)
 
 	def imglist(self):
-		path = '\\static\\img\\restaurants\\'+self.foldername()
+		path = '/static/img/restaurants/'+self.foldername()
 		imgs = lib.util.listfiles(path)
 		return imgs
 
 	def img(self):
 		imgs = self.imglist()
 		return random.choice(imgs)
+
 
 	def __repr__(self):
 		return self.name
@@ -53,10 +59,16 @@ class OpeningHours(db.Model):
 	id = Column(Integer, primary_key=True)
 	rest_id = Column(Integer, ForeignKey('restaurants.id'))
 	day = Column(Integer, nullable=False)
-	hr_open = Column(Integer, nullable=False)
-	hr_close = Column(Integer, nullable=False)
+	hours = Column(String(255), nullable=False)
+	is_open = Column(Boolean, default=True)
 
 	rest = relationship(Restaurant)
+
+	def __repr__(self):
+		if self.is_open:
+			return "%s: %s" % (self.day, self.hours)
+		else:
+			return  "%s : Closed" % (self.day)
 
 class OpeningHoursExceptions(db.Model):
 	__tablename__ = 'hour_exceptions'

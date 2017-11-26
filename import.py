@@ -7,7 +7,7 @@ import sys
 reload(sys)  # Reload does the trick!
 sys.setdefaultencoding('UTF8')
 
-file = 'build/restaurants.csv'
+file = 'build/newrestos.csv'
 
 def parse_header(header):
 	l = map(lambda l: l.lower(), header)
@@ -29,7 +29,10 @@ class Data(object):
 		
 f = open(file, 'rb')
 reader = csv.reader(f)
+
 header = parse_header(reader.next())		
+print header
+
 data = []
 
 for line in reader:
@@ -42,21 +45,38 @@ city_id = r.id
 
 counter = 0
 
+
+def addhours(data, resto_obj):
+	for day in ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su']:
+		h = models.OpeningHours()
+		h.rest = resto_obj
+		h.hours = eval('data.'+day)
+		h.day = day
+		if eval('data.'+day) == 'X':
+			h.is_open = False
+		db.session.add(h)
+	db.session.commit()
+
+
 for rest in data:
 	r = models.Restaurant()
 
-	name = unicode(rest.restaurant.decode('cp1252'))
-	blurb = unicode(rest.blurb.decode('cp1252'))
+	name = unicode(rest.restaurant.decode())
+	blurb = unicode(rest.blurb.decode())
 
 	r.name = name
 	
 	r.cuisine = rest.cuisine
-	r.price = '10-20'
-	r.address = rest.location
-	r.phone = rest.phone
+	r.price = rest.price.decode()
+	r.address = rest.location.decode()
+	r.phone = rest.phone.decode()
 	r.website = rest.website
 	r.blurb = blurb
 	r.city_id = city_id
+
+	r.genre = rest.genre
+	r.recom_bf = (rest.recom_for_bf == 'X')
+	r.recom_lunch = (rest.recom_for_lunch == 'X')
 
 	#rating
 	rating = 3.0
@@ -73,10 +93,13 @@ for rest in data:
 	r.has_reservation = (rest.reservation_online_tool == 'Y')
 	(r.latitude, r.longitude) = lib.geocode.latlng(rest.location)
 
-	print r.name
+	print r.name.decode()
 
 	db.session.add(r)
 	db.session.commit()
+
+	# adding the opening hours
+	addhours(rest, r)
 
 print "IN DATABASE ---------------------------"
 

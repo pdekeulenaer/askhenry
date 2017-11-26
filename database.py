@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import config 
 
 db = SQLAlchemy()
 
@@ -19,7 +20,7 @@ def _build():
 	Base.metadata.create_all(generate_engine())	
 
 def sqlite_str():
-	return 'sqlite:///askhenry_3.db'
+	return 'sqlite:///' + config.DB_NAME
 
 def mysql_str():
 	host = 'pdekeulenaer.mysql.pythonanywhere-services.com'

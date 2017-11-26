@@ -52,11 +52,18 @@ def index():
 @app.route('/app/show-restos/', methods=['POST'])
 def resto():
 	# find 3 restaurants
-	loc = request.form['location']
-	dist = search.radius(int(request.form['foot']), int(request.form['bike']), int(request.form['car']))
-	restos = search.search(loc, dist)
-	
-	return render_template('app_restos.html', restaurants=restos)
+	print "what is happening???????????????????????????????????????????"
+        loc = request.form['location']
+	print loc
+        dist = search.radius(int(request.form['foot']), int(request.form['bike']), int(request.form['car']))
+        print dist
+        restos = search.search(loc, dist)
+	print restos
+        for r in restos:
+            print r[1]
+            print r[1].foldername()
+            print r[1].img()
+        return render_template('app_restos.html', restaurants=restos)
 
 
 @app.route('/user/logout')
