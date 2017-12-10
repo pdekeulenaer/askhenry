@@ -11,9 +11,7 @@ import sys
 reload(sys)  # Reload does the trick!
 sys.setdefaultencoding('UTF8')
 
-
 app = Flask(__name__)
-
 
 def configurate_app():
 	app.secret_key = 'herebemysecretkey'
@@ -52,18 +50,25 @@ def index():
 @app.route('/app/show-restos/', methods=['POST'])
 def resto():
 	# find 3 restaurants
-	print "what is happening???????????????????????????????????????????"
-        loc = request.form['location']
-	print loc
-        dist = search.radius(int(request.form['foot']), int(request.form['bike']), int(request.form['car']))
-        print dist
-        restos = search.search(loc, dist)
-	print restos
-        for r in restos:
-            print r[1]
-            print r[1].foldername()
-            print r[1].img()
-        return render_template('app_restos.html', restaurants=restos)
+    loc = request.form['location']
+    dist = search.radius(int(request.form['foot']), int(request.form['bike']), int(request.form['car']))
+
+    algo = search.balancedAlg()
+
+    # Apply genre filter
+    if int(request.form['breakfast']) == 1:
+    	genre = 'breakfast'
+    	algo = search.basicAlg().add(search.BreakfastFilter())
+    elif int(request.form['lunch']) == 1:
+    	genre = 'lunch'
+    	algo = search.basicAlg().add(search.LunchFilter())
+    else:
+    	genre = 'dinner'
+
+    print genre
+
+    restos = search.search(loc, dist, algo)
+    return render_template('app_restos.html', restaurants=restos)
 
 
 @app.route('/user/logout')
@@ -71,17 +76,6 @@ def logout():
 	logout_user()
 	return redirect(url_for('index'))
 
-# @security.context_processor
-# def security_context_processor():
-# 	return dict(
-# 		admin_base_template=admin.base.template,
-# 		admin_view=admin.index_view,
-# 		h=admin_helpers,
-# 		get_url=url_for
-# 		)
-
-
 configurate_app()
-
 if __name__ == '__main__':
 	app.run(debug=True)

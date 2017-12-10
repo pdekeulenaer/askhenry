@@ -2,17 +2,39 @@
 
     <script src="http://maps.google.com/maps/api/js?key=AIzaSyBUPyNKvbK6RwVSf0jNqsUkHrjBmW_TM4M"></script>
     <script type="text/javascript">
+
       function toggle(id){
         var el = $('#'+id)
         if (el.hasClass("active-white")){
-          el.removeClass("active-white");
-          $('#'+'input_'+id).val(0);
+          toggleOff(id)
           console.log('removing value from input_' + id)
         } else {
-          el.addClass("active-white");
-          $('#'+'input_'+id).val(1) ;
+          toggleOn(id)
           console.log('adding value to input_' + id)
         }
+      };
+
+      function toggleRadio(id_on, idoff1, idoff2){
+        var el = $('#'+id_on)
+        if (el.hasClass("active-white")){
+          toggleOff(id_on); 
+        } else {
+          toggleOn(id_on);
+          toggleOff(idoff1);
+          toggleOff(idoff2);
+        }
+      };
+
+      function toggleOff(id){
+        var el = $('#'+id);
+        el.removeClass("active-white");
+        $('#'+'input_'+id).val(0);
+      };
+
+      function toggleOn(id){
+        var el = $('#'+id);
+        el.addClass("active-white");
+        $('#'+'input_'+id).val(1);        
       };
 
       function locate(){

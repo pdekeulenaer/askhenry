@@ -18,7 +18,21 @@
                       </div>
                     </div>
               <p style="padding-top:1px;padding-left:15px">
-                <p align="center">How do you want to move around?</p>
+                <p align="center">What do you want to have?</p>
+              </p>
+
+              <p class="buttons-row theme-white" style="padding-left:15px">
+                <a href="#" class="button" onclick="toggleRadio('breakfast','lunch', 'dinner')" id="breakfast">Breakfast</a>
+                <a href="#" class="button" onclick="toggleRadio('lunch','breakfast','dinner')" id="lunch">Lunch</a>
+                <a href="#" class="button active-white" onclick="toggleRadio('dinner','lunch','breakfast')" id="dinner">Dinner</a>
+                <input type="hidden" id="input_breakfast" name="breakfast" value="0">
+                <input type="hidden" id="input_lunch" name="lunch" value="0">
+                <input type="hidden" id="input_dinner" name="dinner" value="1">
+              </p>
+
+
+              <p style="padding-top:1px;padding-left:15px">
+                <p align="center">How do you want go?</p>
               </p>
 
               <p class="buttons-row theme-white" style="padding-left:15px">
@@ -30,9 +44,9 @@
                 <input type="hidden" id="input_car" name="car" value="0">
               </p>
 
-              <div style="height:50px"></div>
+              <!-- <div style="height:50px"></div> -->
               <p style="padding-left:15px;padding-top:35px">
-                <a href="#" class="button button-big button-fill color-white" onclick="$('#search-form').submit()" style="color:#696969">Find a nice dinner</a>
+                <a href="#" class="button button-big button-fill color-white" onclick="$('#search-form').submit()" style="color:#696969">Find me a nice place</a>
               </p>
               </form>
             </div>

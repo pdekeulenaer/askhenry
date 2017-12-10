@@ -13,16 +13,23 @@ CAR_RADIUS = 10	# max distance in km
 # Filter classes to get to final list
 class Algorithm():
 	def __init__(self):
+		self.filters_priority = []
 		self.filters = []
 
-	def add(self, f):
-		self.filters.append(f)
+	def add(self, f, prio=True):
+		if prio:
+			self.filters_priority.append(f)
+		else:
+			self.filters.append(f)
 		return self
 
 	def execute(self, lst):
 		l = lst
-		for f in self.filters:
+		for f in self.filters_priority:
 			print "Applying " + f.name()
+			l = f.apply(l)
+
+		for f in self.filters:
 			l = f.apply(l)
 
 		self.list = l
@@ -49,7 +56,11 @@ class MaxFilter(ListFilter):
 
 class LunchFilter(ListFilter):
 	def apply(self, l):
-		return filter(lambda x: x.recom_lunch, l)
+		return filter(lambda (d,x): x.recom_lunch, l)
+
+class BreakfastFilter(ListFilter):
+	def apply(self, l):
+		return filter(lambda (d,x): x.recom_bf, l)
 
 class BalancedFilter(ListFilter):
 	def __init__(self, normalnr, advnr):
@@ -64,11 +75,15 @@ class BalancedFilter(ListFilter):
 
 # Algorithm Configurations
 
-basicAlg = Algorithm()
-basicAlg.add(Shuffle()).add(MaxFilter(3))
+def basicAlg():
+	basicAlg = Algorithm()
+	basicAlg.add(Shuffle()).add(MaxFilter(3), prio=False)
+	return basicAlg	
 
-balancedAlg = Algorithm()
-balancedAlg.add(Shuffle()).add(BalancedFilter(2,1))
+def balancedAlg():
+	balancedAlg = Algorithm()
+	balancedAlg.add(Shuffle()).add(BalancedFilter(2,1), prio=False)
+	return balancedAlg	
 
 # FUNCTIONS
 

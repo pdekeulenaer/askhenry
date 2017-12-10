@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 import datetime
 from database import db
 import lib	
-import random
+import random, os
 
 class City(db.Model):
 	__tablename__ = 'cities'
@@ -48,8 +48,15 @@ class Restaurant(db.Model):
 
 	def img(self):
 		imgs = self.imglist()
-		return random.choice(imgs)
+		img = random.choice(imgs)
+		return img
 
+	def imgpath(self):
+		if (os.path.exists('./static/img/restaurants/'+self.foldername()+'/')) :
+			img = self.img()
+			return 'img/restaurants/'+self.foldername()+'/'+img
+		else:
+			return 'img/restaurants/no_image_available.jpeg'
 
 	def __repr__(self):
 		return self.name
