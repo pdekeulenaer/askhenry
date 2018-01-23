@@ -5,6 +5,8 @@ from database import db, sqlite_str
 from flask_admin import helpers as admin_helpers
 from flask_security import logout_user
 
+from flask_sslify import SSLify
+
 import lib
 import tracer
 
@@ -14,6 +16,7 @@ reload(sys)  # Reload does the trick!
 sys.setdefaultencoding('UTF8')
 
 app = Flask(__name__)
+sslify = SSLify(app)
 
 def configurate_app():
 	app.secret_key = 'herebemysecretkey'
