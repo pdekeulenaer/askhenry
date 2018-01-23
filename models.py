@@ -34,12 +34,21 @@ class Restaurant(db.Model):
 	genre = Column(String(255))
 	recom_bf = Column(Boolean, default=False)
 	recom_lunch = Column(Boolean, default=False)
+	folder = Column(String(100))
 
 	city = relationship('City')
 	hours = relationship('OpeningHours', backref='restaurant', lazy='dynamic')
 
+
+	def isopen(self, day, hour=0):
+		h = self.hours.all()
+		thisday = filter(lambda x: x.day == day, h)[0]
+		return thisday.is_open
+
+	# Deprecated - remove when all references are gone
 	def foldername(self):
-		return lib.util.cleanstr(str(self.id) + ' ' + self.name)
+		return self.folder
+		# return lib.util.cleanstr(str(self.id) + ' ' + self.name)
 
 	def imglist(self):
 		path = '/static/img/restaurants/'+self.foldername()
@@ -101,3 +110,22 @@ class Social(db.Model):
 
 	last_updated = Column(DateTime, default=datetime.datetime.utcnow)
 	rest = relationship(Restaurant)
+
+class Trace(db.Model):
+	__tablename__ = 'traces'
+	id = Column(Integer, primary_key=True)
+	longitude = Column(Float, nullable=False)
+	latitude = Column(Float, nullable=False)
+	transport = Column(String(20))
+	food_type = Column(String(20))
+	resto1 = Column(Integer, ForeignKey('restaurants.id'))
+	resto2 = Column(Integer, ForeignKey('restaurants.id'))
+	resto3 = Column(Integer, ForeignKey('restaurants.id'))
+	choice = Column(Integer)
+
+	user_id = Column(Integer)
+	email = Column(String(255))
+	session_id = Column(Integer)
+
+	timestamp = Column(DateTime, default=datetime.datetime.utcnow)
+

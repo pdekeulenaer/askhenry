@@ -14,6 +14,8 @@ def listfiles(s):
 	files = []
 	for f in os.listdir(os.getcwd() + s):
 		files.append(f)
-		print type(f)
 
 	return files
+
+def log(s):
+	print "[LOG] %s" % (s)

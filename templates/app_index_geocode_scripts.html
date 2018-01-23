@@ -3,26 +3,30 @@
     <script src="http://maps.google.com/maps/api/js?key=AIzaSyBUPyNKvbK6RwVSf0jNqsUkHrjBmW_TM4M"></script>
     <script type="text/javascript">
 
+      $('#breakfast').on('click', function(){toggleRadio('breakfast','lunch', 'dinner')});
+      $('#lunch').on('click', function(){toggleRadio('lunch','breakfast', 'dinner')});
+      $('#dinner').on('click', function(){toggleRadio('dinner','lunch', 'breakfast')});
+      
       function toggle(id){
         var el = $('#'+id)
         if (el.hasClass("active-white")){
-          toggleOff(id)
-          console.log('removing value from input_' + id)
+          toggleOff(id);
+          console.log('removing value from input_' + id);
         } else {
-          toggleOn(id)
-          console.log('adding value to input_' + id)
+          toggleOn(id);
+          console.log('adding value to input_' + id);
         }
       };
 
       function toggleRadio(id_on, idoff1, idoff2){
-        var el = $('#'+id_on)
+        var el = $('#'+id_on);
         if (el.hasClass("active-white")){
           toggleOff(id_on); 
         } else {
           toggleOn(id_on);
           toggleOff(idoff1);
           toggleOff(idoff2);
-        }
+        };
       };
 
       function toggleOff(id){
@@ -38,18 +42,18 @@
       };
 
       function locate(){
-        geoLocateAPI()
-        // if (navigator.geolocation){
-        //   // navigator.geolocation.getCurrentPosition(geoCode, geoLocateAPI, {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
-          
-        // } else {
-        //   console.log('Geolocation not supported')
-        // }
+        console.log('locating')
+        // geoLocateAPI();
+        if (navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(geoCode, err, {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
+        } else {
+          console.log('Geolocation not supported')
+        }
       };
 
 
-      var api_key = 'AIzaSyDkC04TyWleKErJeTq--Jhrp4DRYy7V0vI'
-      var geolocate_api = "https://www.googleapis.com/geolocation/v1/geolocate?key="
+      // var api_key = 'AIzaSyDkC04TyWleKErJeTq--Jhrp4DRYy7V0vI';
+      // var geolocate_api = "https://www.googleapis.com/geolocation/v1/geolocate?key=";
       
       // function geoLocateAPI(){
       //   console.log(JSON.stringify({'test':'ip'}))
@@ -68,30 +72,33 @@
       //   });
       // }
 
-      function geoLocateAPI(){
-        xhr = new XMLHttpRequest();
-        var url = geolocate_api + api_key
+      // function geoLocateAPI(){
+      //   console.log("falling back on GeoLocateAPI")
+      //   xhr = new XMLHttpRequest();
+      //   var url = geolocate_api + api_key
 
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
+      //   xhr.open("POST", url, true);
+      //   xhr.setRequestHeader("Content-Type", "application/json");
 
-        xhr.onreadystatechange = function () { 
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var json = JSON.parse(xhr.responseText);
-                console.log(json.location.lat+","+json.location.lng+","+json.accuracy);
-                console.log(json);
-            }
-        };
+      //   xhr.onreadystatechange = function () { 
+      //       if (xhr.readyState == 4 && xhr.status == 200) {
+      //           var json = JSON.parse(xhr.responseText);
+      //           console.log(json.location.lat+","+json.location.lng+","+json.accuracy);
+      //           console.log(json);
+      //       }
+      //   };
         
-        var data = JSON.stringify({"considerIp": "false"});
-        xhr.send(data);
-      };
+      //   var data = JSON.stringify({"considerIp": "false"});
+      //   xhr.send(data);
+      // };
 
 
 
-      function geoCode(lat, long){
+      function geoCode(pos){
+        console.log(pos)
+
         var geocoder = new google.maps.Geocoder()
-        var latlong = {lat: lat, lng: long};
+        var latlong = {lat: pos.coords.latitude, lng: pos.coords.longitude};
 
         console.log('latlong: '+latlong)
         geocoder.geocode({'location':latlong}, function(res, status) {
@@ -112,5 +119,11 @@
             }
             console.log(res);
         });
-      }
+      };
+
+      function err(err){
+        alert('Position currently not available');
+      };
+
+
     </script>

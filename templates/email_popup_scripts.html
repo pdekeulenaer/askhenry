@@ -1,0 +1,71 @@
+<script type="text/javascript">
+var myApp = new Framework7();
+var $$ = Dom7;
+
+
+function confirm(url, id){
+	make_choice(id);
+	pass_email(url);
+};
+
+function add_email(email){
+	var data = {'email' : email}
+	$.ajax({
+		url: '/app/api/add_email',
+		type: 'POST',
+		data: JSON.stringify(data, null, '\t'),
+		contentType: 'application/json;charset=UTF-8',
+		success: function(response) {
+			console.log(response);
+		},
+		error: function(error){
+			console.log(error)
+		}
+	});
+};
+
+function close_trace(){
+	$.ajax({
+		url: '/app/api/close_trace',
+		type: 'POST',
+		data: '',
+		success: function(response) {
+			console.log(response);
+		},
+		error: function(error){
+			console.log(error)
+		}
+	});	
+}
+
+function make_choice(id){
+	var data = {'choice' : id}
+	$.ajax({
+		url: '/app/api/make_choice',
+		type: 'POST',
+		data: JSON.stringify(data, null, '\t'),
+		contentType: 'application/json;charset=UTF-8',
+		success: function(response) {
+			console.log(response);
+		},
+		error: function(error){
+			console.log(error)
+		}
+	});
+};
+
+function pass_email(url){
+	myApp.prompt('Congrats on picking a great restaurant! Please leave behind your email so we can stay in touch!', 'Enjoy your meal', function(value){
+		console.log("Email provided: " + value);
+		add_email(value);
+		close_trace();
+		window.location.href = url;
+	}, function(value){
+		console.log("You cancelled - sad!")
+		close_trace();
+		window.location.href = url;
+	});
+};
+
+
+</script>

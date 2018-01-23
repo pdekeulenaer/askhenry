@@ -1,0 +1,3 @@
+id,first_name,last_name,email,password,active,confirmed_at
+1,Philip,De Keulenaer,philip.dekeulenaer@gmail.com,$6$rounds=656000$VtZeEfJYh61w1pDy$lwx2UhmV.9vKZRQAby9cWQbChKohlic/8eY/SmPDpcRlDgM3zF7AI6WKWJNbVlKX6vMJOKJwkmMt.BXd2.s/1.,1,2017-11-25 23:53:37.367000
+2,Thomas,Philip,thomas@berger.be,$6$rounds=656000$9byom8gsx8Ix3l.T$o3RcguY.w.ywOclADHM8HM1QoXPDzhloU2g85jwaCEKG3Ci1MG444K12xfz/om2NrOyS0K2Nnrgey.CZVmK45.,1,2017-11-25 23:53:37.367000

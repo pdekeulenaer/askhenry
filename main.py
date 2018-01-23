@@ -1,10 +1,12 @@
-from flask import Flask, render_template, redirect, url_for, request
+import json
+from flask import Flask, render_template, redirect, url_for, request, session
 import admin, security, models, search
 from database import db, sqlite_str
 from flask_admin import helpers as admin_helpers
 from flask_security import logout_user
 
 import lib
+import tracer
 
 # fixing encoding temporarily
 import sys
@@ -41,6 +43,7 @@ def configurate_app():
 
 @app.route('/app/')
 def main_app():
+	tracer.open_session()
 	return render_template('app_index.html')
 
 @app.route('/')
@@ -52,7 +55,6 @@ def resto():
 	# find 3 restaurants
     loc = request.form['location']
     dist = search.radius(int(request.form['foot']), int(request.form['bike']), int(request.form['car']))
-
     algo = search.balancedAlg()
 
     # Apply genre filter
@@ -65,10 +67,44 @@ def resto():
     else:
     	genre = 'dinner'
 
-    print genre
+    # setting up the tracer
+    # TODO - abstract into method
+    t = models.Trace()
+    t.transport = (request.form['foot'])+(request.form['bike'])+(request.form['car'])
+    t.food_type = genre
 
-    restos = search.search(loc, dist, algo)
+    restos = search.search(loc, dist, algo, t)
+    t.resto1 = restos[0][1].id
+    t.resto2 = restos[1][1].id
+    t.resto3 = restos[2][1].id
+    t.session_id = session['uuid']
+
+    db.session.add(t)
+    db.session.commit()
+
+    tracer.set_tracer(t)
+
+    # render the output
     return render_template('app_restos.html', restaurants=restos)
+
+
+@app.route('/app/api/make_choice', methods=['POST'])
+def make_choice():
+	choice = int(request.json['choice'])
+	tracer.set_choice(choice)
+	
+	return json.dumps({'status':'OK'})
+
+@app.route('/app/api/add_email', methods=['POST'])
+def add_email():
+	email = str(request.json['email'])
+	tracer.set_email(email)	
+	return json.dumps({'status':'OK'})
+
+@app.route('/app/api/close_trace', methods=['POST'])
+def close_trace():
+	tracer.close_trace()
+	return json.dumps({'status':'OK'})
 
 
 @app.route('/user/logout')

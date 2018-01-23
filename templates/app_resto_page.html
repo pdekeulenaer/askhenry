@@ -42,7 +42,7 @@
         </ul>
       </div>
       <div class="card-content-inner">
-        <a class="button button-fill color-blue link external" href="https://www.google.com/maps/dir/?api=1&destination={{r.latitude}},{{r.longitude}}&action=navigate">
+        <a class="button button-fill color-blue link external" onclick="confirm('https://www.google.com/maps/dir/?api=1&destination={{r.latitude}},{{r.longitude}}&action=navigate',{{r.id}})">
         <i class="f7-icons color-white float-left">check</i>Take me here ({{d|round(1)}} km)</a>
       </div>
     </div>

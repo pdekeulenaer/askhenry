@@ -1,0 +1,54 @@
+TODO
+
+
+DEPLOYMENT
+------------------------------------------------------------------------------
+Security
+[x] obtain domain name
+[x] get certificate
+[] setup certificate & domain name
+[x] upgrade pythonanywhere subscription
+
+Deployment
+[] Get 100 test visits over span of 1 week and check data & analytics results
+[] Switch onto MySQL server
+
+
+USER EXPERIENCE & FUNCIONALITY
+------------------------------------------------------------------------------
+User Experience
+[] Make website desktop & tablet friendly
+[] Check cross-platform visualization issues (Android switches don't render)
+
+Functionalities
+[] Repeat recommendation if not a new session
+	--> give option if you revisit 30 min or more after doing the search to view the choice or to pick a new one?
+[] Display opening times for today clearly on page
+[] Build menu and show in 'popup'
+[] Link to online reservation where possible
+
+Backend
+[x] Link folders to accounts through DB field
+[] Check opening timing
+
+
+DATA COLLECTION
+------------------------------------------------------------------------------
+User tracking
+[x] Define and setup user & user activity database
+[x] Email capture at selection
+[] Verify email when entered, create 'user profile' based on email --> "complete your profile"
+[x] Link "choice", email, device and session in database
+[] Feedback pop-up on next day
+
+
+
+
+THOUGHTS
+- check if a session exists at start of search
+- if session exists and it is very recent (<24h) --> return same if inputs are same
+- if session exists and it is old --> run new search and update session
+- if session does not exist, create one valid for eternity
+- store in session: search params, time of search, search results, choice (i.e., full trace)
+- store each trace in database with a unique session identifier
+

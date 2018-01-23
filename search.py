@@ -1,6 +1,7 @@
 import lib
 import models
 import geopy.distance, geopy.geocoders
+import datetime, calendar
 from random import shuffle
 
 WALK_RADIUS = 1.25	# max distance in km
@@ -26,7 +27,6 @@ class Algorithm():
 	def execute(self, lst):
 		l = lst
 		for f in self.filters_priority:
-			print "Applying " + f.name()
 			l = f.apply(l)
 
 		for f in self.filters:
@@ -73,16 +73,25 @@ class BalancedFilter(ListFilter):
 
 		return normal[0:self.normal_nr]+adventurous[0:self.adv_nr]
 
-# Algorithm Configurations
 
+class OpenToday(ListFilter):
+	def __init__(self):
+		self.today = calendar.day_name[datetime.datetime.today().weekday()].lower()[0:2]	# get weekday how its stored in DB
+
+	def apply(self, l):
+		return filter (lambda (d,x): x.isopen(self.today), l)
+
+
+
+# Algorithm Configurations
 def basicAlg():
 	basicAlg = Algorithm()
-	basicAlg.add(Shuffle()).add(MaxFilter(3), prio=False)
+	basicAlg.add(Shuffle()).add(MaxFilter(3), prio=False).add(OpenToday())
 	return basicAlg	
 
 def balancedAlg():
 	balancedAlg = Algorithm()
-	balancedAlg.add(Shuffle()).add(BalancedFilter(2,1), prio=False)
+	balancedAlg.add(Shuffle()).add(BalancedFilter(2,1), prio=False).add(OpenToday())
 	return balancedAlg	
 
 # FUNCTIONS
@@ -108,11 +117,17 @@ def query_restos(center, MAX_DIST):
 
 
 # Get the LATLNG of the address at the center, and find 3 restos nearby
-def search(addr, radius=100, alg=basicAlg):
+def search(addr, radius=100, alg=basicAlg, trace=models.Trace()):
 	center = lib.geocode.latlng(addr)
+	
+	# Tracking the tracer
+	(lat,lon) = center
+	trace.latitude = lat
+	trace.longitude = lon
+
 	l = query_restos(center, radius)
 	if alg is None:
-		return shuffle()
+		alg = shuffle()
 	
 	alg.execute(l)
 	return alg.list
