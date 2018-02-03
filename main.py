@@ -1,5 +1,5 @@
 import json
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, render_template, redirect, url_for, request, session, flash
 import admin, security, models, search
 from database import db, sqlite_str
 from flask_admin import helpers as admin_helpers
@@ -51,7 +51,8 @@ def main_app():
 
 @app.route('/')
 def index():
-	return redirect(url_for('main_app'))
+	return render_template('test.html')
+	# return redirect(url_for('main_app'))
 
 @app.route('/app/show-restos/', methods=['POST'])
 def resto():
@@ -77,15 +78,22 @@ def resto():
     t.food_type = genre
 
     restos = search.search(loc, dist, algo, t)
-    t.resto1 = restos[0][1].id
-    t.resto2 = restos[1][1].id
-    t.resto3 = restos[2][1].id
-    t.session_id = session['uuid']
 
+
+    if (len(restos) > 0): t.resto1 = restos[0][1].id
+    if (len(restos) > 1): t.resto2 = restos[1][1].id
+    if (len(restos) > 2): t.resto3 = restos[2][1].id
+    t.session_id = session['uuid']
     db.session.add(t)
     db.session.commit()
 
     tracer.set_tracer(t)
+
+    # checking if results are empty
+    if (len(restos) ==0):
+    	flash("Sorry, we couldn't find any restaurants in range :(. Can you try again?")
+    	tracer.close_trace()
+    	return redirect(url_for('main_app'))
 
     # render the output
     return render_template('app_restos.html', restaurants=restos)

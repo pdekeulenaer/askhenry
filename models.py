@@ -114,8 +114,8 @@ class Social(db.Model):
 class Trace(db.Model):
 	__tablename__ = 'traces'
 	id = Column(Integer, primary_key=True)
-	longitude = Column(Float, nullable=False)
-	latitude = Column(Float, nullable=False)
+	longitude = Column(Float)
+	latitude = Column(Float)
 	transport = Column(String(20))
 	food_type = Column(String(20))
 	resto1 = Column(Integer, ForeignKey('restaurants.id'))

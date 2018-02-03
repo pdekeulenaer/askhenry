@@ -23,7 +23,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/my-app.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/framework7-icons.css') }}">
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/powerange.css') }}"> -->
+
+
   </head>
+
   <body>
     <!-- Views -->
     <div class="views">
@@ -50,6 +53,31 @@
     <script type="text/javascript" src="{{ url_for('static', filename = 'js/framework7.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename = 'js/my-app.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      // var app = new Framework7();
+
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+
+      function notify() {
+        myApp.addNotification({
+          title: 'Ask Henry',
+          message: '{{ message }}',
+        });
+      };
+
+      window.onload = notify;
+
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+
+  </script>
+
+
     {% block scripts %}{% endblock %}
   </body>
 </html>    

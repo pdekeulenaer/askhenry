@@ -4,9 +4,12 @@ import geopy.distance, geopy.geocoders
 import datetime, calendar
 from random import shuffle
 
+
 WALK_RADIUS = 1.25	# max distance in km
 BIKE_RADIUS = 3.5	# max distance in km
 CAR_RADIUS = 10	# max distance in km
+
+DEFAULT_RADIUS = 25
 
 # address = 'Verbindingsdok Westakaai 18, 2000 Antwerpen'
 # latlng = lib.geocode.latlng(address)
@@ -16,6 +19,7 @@ class Algorithm():
 	def __init__(self):
 		self.filters_priority = []
 		self.filters = []
+		self.list = []
 
 	def add(self, f, prio=True):
 		if prio:
@@ -117,10 +121,13 @@ def query_restos(center, MAX_DIST):
 
 
 # Get the LATLNG of the address at the center, and find 3 restos nearby
-def search(addr, radius=100, alg=basicAlg, trace=models.Trace()):
+def search(addr, radius=DEFAULT_RADIUS, alg=basicAlg, trace=models.Trace()):
 	center = lib.geocode.latlng(addr)
 	
 	# Tracking the tracer
+	if center is None:
+		return []
+
 	(lat,lon) = center
 	trace.latitude = lat
 	trace.longitude = lon
@@ -135,12 +142,12 @@ def search(addr, radius=100, alg=basicAlg, trace=models.Trace()):
 # return the radius to be used
 def radius(walk=0, bike=0, car=0):
 	if walk == bike == car == 0:
-		return 100;
+		return DEFAULT_RADIUS;
 	if car == 1: return CAR_RADIUS
 	if bike == 1: return BIKE_RADIUS
 	if walk == 1: return WALK_RADIUS
 
-	return 100;
+	return DEFAULT_RADIUS;
 
 
 # HELP functions

@@ -10,6 +10,10 @@ def _latlng_google_manual(addr, api='Google'):
 	params['address'] = addr
 	r = requests.get(api_url, params)
 	results = r.json()['results']
+	
+	if len(results) == 0:
+		return None
+
 	loc = results[0]['geometry']['location']
 
 	lat = loc['lat']

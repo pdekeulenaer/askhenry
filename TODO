@@ -6,7 +6,7 @@ DEPLOYMENT
 Security
 [x] obtain domain name
 [x] get certificate
-[] setup certificate & domain name
+[x] setup certificate & domain name
 [x] upgrade pythonanywhere subscription
 
 Deployment
@@ -30,7 +30,7 @@ Functionalities
 Backend
 [x] Link folders to accounts through DB field
 [] Check opening timing
-
+[x] set uatomatic SSL redirect
 
 DATA COLLECTION
 ------------------------------------------------------------------------------
@@ -52,3 +52,5 @@ THOUGHTS
 - store in session: search params, time of search, search results, choice (i.e., full trace)
 - store each trace in database with a unique session identifier
 
+BUGLIST
+[] Fix error on emptys treets not recognized
