@@ -13,6 +13,26 @@ def open_session():
 		session['uuid'] = generate_uuid()
 		session.permanent = True
 
+def session_has_email():
+	if 'email' in session:
+		return True
+	return refresh_email_from_trace()
+
+def refresh_email_from_trace():
+	if 'uuid' in session:
+		res = models.Trace.query.filter(models.Trace.email.isnot(None)).filter_by(session_id=session['uuid']).order_by(models.Trace.timestamp.desc()).first()
+		if res is None:
+			return False
+	session['email'] = res.email
+	return True
+
+
+def session_set_email(email):
+	if session_has_email():
+		log('overwriting email %s' % (session['email']))	
+	log('setting up email')
+	session['email'] = email
+
 def close_session():
 	session.clear()
 

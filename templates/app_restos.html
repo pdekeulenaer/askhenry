@@ -28,7 +28,7 @@
       <div class="page">
         <div class="page-content login-screen-content">
           <div class="login-screen-title">Ask Henry</div>
-          <form>
+          <form id="email-screen-form">
             <div class="list-block">
               <div class="list-block-label">
               <p>Before you go, why don't you leave your email so we can stay in touch?</p>
@@ -38,7 +38,7 @@
                   <div class="item-inner">
                     <div class="item-title label">Email</div>
                     <div class="item-input">
-                      <input type="text" name="email" placeholder="henry@askhenry.be">
+                      <input type="text" name="email" placeholder="henry@askhenry.be" id="register-email">
                     </div>
                   </div>
                 </li>
@@ -46,10 +46,10 @@
             </div>
             <div class="list-block">
               <ul>
-                <li><a href="#" class="item-link list-button">Register</a></li>
+                <li><a href="#" onclick="register()" id="register-confirm" class="item-link list-button">Take me to my restaurant</a></li>
               </ul>
               <div class="list-block-label">
-                <p><a href="#" class="close-login-screen">Continue without registering</a></p>
+                <p><a href="#" onclick="advance()" class="close-login-screen">Continue without registering</a></p>
               </div>
             </div>
           </form>

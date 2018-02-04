@@ -47,12 +47,19 @@ def configurate_app():
 @app.route('/app/')
 def main_app():
 	tracer.open_session()
+	tracer.refresh_email_from_trace()
+
+	if 'email' in session:
+		print 'Session email: ', session['email']
+	else:
+		print 'No email set unfortunately sir'
+
 	return render_template('app_index.html')
 
 @app.route('/')
 def index():
-	return render_template('test.html')
-	# return redirect(url_for('main_app'))
+	# return render_template('test.html')
+	return redirect(url_for('main_app'))
 
 @app.route('/app/show-restos/', methods=['POST'])
 def resto():
@@ -99,6 +106,8 @@ def resto():
     return render_template('app_restos.html', restaurants=restos)
 
 
+# API codes
+
 @app.route('/app/api/make_choice', methods=['POST'])
 def make_choice():
 	choice = int(request.json['choice'])
@@ -110,12 +119,38 @@ def make_choice():
 def add_email():
 	email = str(request.json['email'])
 	tracer.set_email(email)	
+
+	# Can't set new email here as it does not register properly
+	# Redo with sijax library when migrated
+
 	return json.dumps({'status':'OK'})
 
 @app.route('/app/api/close_trace', methods=['POST'])
 def close_trace():
-	tracer.close_trace()
+	# tracer.close_trace()
 	return json.dumps({'status':'OK'})
+
+# TEMP HACK
+@app.route('/app/api/destroy_session', methods=['GET'])
+def destroy_session():
+	session.clear()
+	return json.dumps({'status':'OK'})
+
+#DEBUG METHOD
+@app.route('/app/api/get_email', methods=['GET'])
+def get_email():
+
+	if 'email' in session:
+		return json.dumps({'status': 'OK', 'email':session['email']})
+	else:
+		return json.dumps({'status':'NOT OK', 'msg': 'No email set'})
+
+
+@app.route('/app/api/set_email', methods=['GET'])
+def set_email():
+	session['email'] = 'YOURE A FUCKING ASSCAKE'
+	return json.dumps({'status':'OK'})
+
 
 
 @app.route('/user/logout')
