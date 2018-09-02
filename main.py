@@ -173,15 +173,9 @@ def logout():
 
 # TEST FOR IMAGES ON PHONE
 @app.route('/megmeg/scan', methods=['GET'])
-def set_email():
-	return render_template('survey.html')
+def scan():
+	return render_template('scan.html')
 	
-
-
-
-
-
-
 
 
 
