@@ -1,0 +1,116 @@
+<script type="text/javascript">
+
+
+function unhide(el){
+	console.log('unhiding')
+	console.log(el)
+	el.removeClass("hidden");
+};
+
+function hide(el){
+	el.addClass("hidden")
+};
+
+
+function setStar(id, val){
+	// var current_value = $('#'+id).text();
+	// var newval = ''
+	// console.log(current_value)
+	// if (current_value == 'star') {
+	// 	newval = 'star_fill';
+	// } else {
+	// 	newval = 'star';
+	// }
+	$('#star-'+id).text(val);
+};
+
+
+function swapStar(id){
+	var current_value = $('#'+id).text();
+	var newval = ''
+	console.log(current_value)
+	if (current_value == 'star') {
+		newval = 'star_fill';
+	} else {
+		newval = 'star';
+	}
+	$('#'+id).text(newval);
+};
+
+function clickStar(id){
+	// var val = $('#star-'+id).text();
+	// var fill = 'star';
+
+	// if (val == 'star'){
+	// 	fill = 'star_fill';
+	// };
+	console.log('clickers ' + id)
+	for (var i=1; i <= parseInt(id); i++){
+		setStar(i, 'star_fill');
+	};
+	for (var i=parseInt(id)+1; i <= 5; i++){
+		setStar(i, 'star');
+	};
+
+	if (parseInt(id) > 2){
+		unhide($('#survey-what-did-you-like'));
+		hide($('#survey-what-did-you-not-like'));
+		hide($('#survey-why-not'));
+	} else {
+		unhide($('#survey-what-did-you-not-like'));
+		hide($('#survey-what-did-you-like'));
+		hide($('#survey-why-not'));
+	};
+	unhide($('#survey-closure'));
+
+};
+
+
+function toggleChipSelected(el){
+	var cl = 'selected-chip'
+	if (el.hasClass(cl)) {
+		el.removeClass(cl);
+	} else {
+		el.addClass(cl);
+	};
+}
+
+
+$(document).ready(function() {
+	console.log('setting up')
+	$('#survey-1-y').click(function(){
+		unhide($('#survey-rating'));
+		hide($('#survey-why-not'));
+		hide($('#survey-closure'));
+	});
+	$('#survey-1-n').click(function(){
+		hide($('#survey-rating'));
+		hide($('#survey-what-did-you-like'));
+		hide($('#survey-what-did-you-not-like'));
+		hide($('#survey-closure'));
+		unhide($('#survey-why-not'));
+	});
+
+	$('#star-'+1).click(function(){clickStar(1)});	
+	$('#star-'+2).click(function(){clickStar(2)});	
+	$('#star-'+3).click(function(){clickStar(3)});	
+	$('#star-'+4).click(function(){clickStar(4)});	
+	$('#star-'+5).click(function(){clickStar(5)});	
+
+
+	// $('#chip-like-price').click(function(){toggleChipSelected($('#chip-like-price'))})
+
+	var chips_like = ['chip-like-value-for-money', 'chip-like-price','chip-like-location', 'chip-like-food', 'chip-like-service', 'chip-dislike-price', 'chip-dislike-crowd', 'chip-dislike-service', 'chip-dislike-location', 'chip-dislike-food'];
+
+	for (let i = 0; i < chips_like.length; i++) {
+		console.log('registering for '+chips_like[i]);
+		$('#'+chips_like[i]).click(function(){
+			toggleChipSelected($('#'+chips_like[i]));
+		});
+	};
+
+});
+
+
+
+</script>

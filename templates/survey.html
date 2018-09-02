@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block content %}
+        <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through toolbar-through">
+          <!-- Page, "data-page" contains page name -->
+          <div data-page="index" class="page" id="grad">
+            <!-- Scrollable page content -->
+            <div class="page-content">
+              <div class="content-block">
+				
+				<div class="card">
+				  <div class="card-header">Tell us what you thought</div>
+				  <div class="card-content">
+				    <div class="card-content-inner">
+				    	<div id="survey-did-you-go">
+				    	Did you go to the restaurant?
+				    	<p>
+				    	<div class="row">
+						  <div class="col-50">
+						    <a href="#" id="survey-1-y" class="button button-fill button-round">Yes</a>
+						  </div>
+						  <div class="col-50">
+						    <a href="#" id="survey-1-n" class="button  button-fill button-round">No</a>
+						  </div>
+						</div>
+						</p>
+						</div>
+
+						
+						<div id="survey-rating"  class="hidden">
+				    	<hr />
+				    	How would you rate it?
+				    	<p align="center">
+				    		<i class="f7-icons" id="star-1">star</i>
+				    		<i class="f7-icons" id="star-2">star</i>
+				    		<i class="f7-icons" id="star-3">star</i>
+				    		<i class="f7-icons" id="star-4">star</i>
+				    		<i class="f7-icons" id="star-5">star</i>
+						</p>
+						</div>
+
+						
+						<div id="survey-what-did-you-like" class="hidden">
+				    	<hr />
+				    	<p>
+				    	What did you like?
+						<div class="chip " id="chip-like-value-for-money">
+						    <div class="chip-label">Value for money</div>
+						  </div>
+						  <div class="chip" id="chip-like-price">
+						    <div class="chip-label">Price</div>
+						  </div>
+						  <div class="chip" id="chip-like-location">
+						    <div class="chip-label">Location</div>
+						  </div>
+						  <div class="chip" id="chip-like-food">
+						    <div class="chip-label">Food quality</div>
+						  </div>
+						  <div class="chip" id="chip-like-service">
+						    <div class="chip-label">Service</div>
+						  </div>
+						</p>
+						</div>
+
+						<div id="survey-what-did-you-not-like" class="hidden">
+				    	<hr />
+				    	<p>
+				    	What was wrong?
+						<div class="chip" id="chip-dislike-price">
+						    <div class="chip-label">Too expensive</div>
+						  </div>
+						  <div class="chip" id="chip-dislike-crowd">
+						    <div class="chip-label">Crowdy</div>
+						  </div>
+						  <div class="chip" id="chip-dislike-service">
+						    <div class="chip-label">Service</div>
+						  </div>
+						  <div class="chip" id="chip-dislike-location">
+						    <div class="chip-label">Location</div>
+						  </div>
+						  <div class="chip" id="chip-dislike-food">
+						    <div class="chip-label">Food quality</div>
+						  </div>
+						</p>
+						</div>
+						
+						<div id="survey-why-not"  class="hidden">
+				    	<hr />
+				    	<p>
+				    	Why didn't you go?
+				    	<div class="row">
+						  <div class="col-50">
+						    <a href="#" class="button button-fill button-round">Too busy</a>
+						  </div>
+						  <div class="col-50">
+						    <a href="#" class="button  button-fill button-round">Closed</a>
+						  </div>
+						</div>
+						<br />
+						<div class="row">
+  						  <div class="col-75">
+						    <a href="#" class="button  button-fill button-round">Found something else</a>
+						  </div>
+  						  <div class="col-25">
+						    <a href="#" class="button  button-fill button-round">Other</a>
+						  </div>
+						</div>
+						</p>
+						</div>
+
+
+
+						<div id="survey-closure"  class="hidden">
+						<hr />
+				    	<p>
+				    	Thanks for your feedback! Anything else you want to share?
+						</p>
+						</div>
+
+				    </div>
+				  </div>
+				</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+  {% include "survey_scripts.html" %}
+{% endblock %}

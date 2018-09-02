@@ -11,8 +11,16 @@
 	color: #eeeeee;
 }
 
+.hidden {
+  display: none;
+}
+
 .card {
   color: #6d6d72;
+}
+
+.selected-chip {
+  background-color: #1b5699;
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */

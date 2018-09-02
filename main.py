@@ -106,6 +106,16 @@ def resto():
     return render_template('app_restos.html', restaurants=restos)
 
 
+# survey links
+@app.route('/app/survey/', methods=['GET'])
+def survey():
+
+	return render_template('survey.html')
+
+
+
+
+
 # API codes
 
 @app.route('/app/api/make_choice', methods=['POST'])
@@ -148,7 +158,7 @@ def get_email():
 
 @app.route('/app/api/set_email', methods=['GET'])
 def set_email():
-	session['email'] = 'YOURE A FUCKING ASSCAKE'
+	session['email'] = 'LOGOUT'
 	return json.dumps({'status':'OK'})
 
 
@@ -157,6 +167,23 @@ def set_email():
 def logout():
 	logout_user()
 	return redirect(url_for('index'))
+
+
+
+
+# TEST FOR IMAGES ON PHONE
+@app.route('/megmeg/scan', methods=['GET'])
+def set_email():
+	return render_template('survey.html')
+	
+
+
+
+
+
+
+
+
 
 configurate_app()
 if __name__ == '__main__':
